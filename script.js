@@ -27,7 +27,7 @@ revealElements.forEach(el => observer.observe(el));
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
-        
+
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
             window.scrollTo({
@@ -38,13 +38,28 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Mobile Menu Placeholder (Optional enhancement)
+// Mobile Menu Logic
 const menuBtn = document.getElementById('menu-btn');
 const navLinks = document.querySelector('.nav-links');
+const menuIcon = menuBtn.querySelector('i');
 
 if (menuBtn) {
     menuBtn.addEventListener('click', () => {
-        // Toggle logic can be added here if needed
-        alert('Mobile menu clicked! Logic can be expanded for a full mobile overlay.');
+        navLinks.classList.toggle('active');
+
+        // Toggle Icon
+        if (navLinks.classList.contains('active')) {
+            menuIcon.classList.replace('fa-bars', 'fa-times');
+        } else {
+            menuIcon.classList.replace('fa-times', 'fa-bars');
+        }
+    });
+
+    // Close menu when a link is clicked
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            navLinks.classList.remove('active');
+            menuIcon.classList.replace('fa-times', 'fa-bars');
+        });
     });
 }
